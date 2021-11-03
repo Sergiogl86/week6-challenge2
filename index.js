@@ -1,12 +1,21 @@
+const { program } = require("commander");
 require("dotenv").config();
 const http = require("http");
 const url = require("url");
+
+program.version("0.0.1");
+
+program.option("-p, --port <type>", "port number");
+
+program.parse(process.argv);
+
+const options = program.opts();
 
 const { suma, resta, multiplicación, division } = require("./calculator");
 
 const server = http.createServer();
 
-const port = process.env.WEEK6_CHALLENGE2 || 5000;
+const port = options.port || process.env.WEEK6_CHALLENGE2 || 5000;
 
 server.listen(port, () => {
   console.log(`Escuchando en el puerto ${port}`);
